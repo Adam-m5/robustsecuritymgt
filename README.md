@@ -19,7 +19,7 @@ To access the system, please visit the admin login page and use your authorized 
 
 For any support or access issues, please contact:
 
-- **Phone:** +256 750 555 114 / +256 200 920 601
+- **Phone:** +256 750555114 / +256200920601 /+256783122579
 
 ## About
 
