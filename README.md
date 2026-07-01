@@ -31,35 +31,50 @@ This system is developed for **Robust Security (U) Ltd** to manage and oversee a
 
 ## Deployment / Static site in this repository
 
-This repository also contains a pre-built static Single-Page Application (SPA) frontend that can be published to Netlify without adding build sources.
+This repository contains a pre-built static Single-Page Application (SPA) frontend that can be published to Netlify without adding build sources.
 
 Location of the deploy-ready site in this repository:
 
-- robust-security-mgmt-netlify-deploy (9)/
+- `site/` (renamed from `robust-security-mgmt-netlify-deploy (9)` for cleaner filesystem paths)
   - index.html (SPA entry that mounts into `#root`)
   - assets/ (compiled JS/CSS)
   - images/
   - favicon.png
   - _redirects
-  - netlify.toml (if present inside the folder)
 
 How to preview locally:
 
 ```bash
-cd "robust-security-mgmt-netlify-deploy (9)"
+cd site
 python -m http.server 8000
 # or
 npx serve -s .
 ```
 
-Quick Netlify publishing (no build):
+## Netlify deployment
 
-A root-level `netlify.toml` is included to publish the existing static folder directly. This lets Netlify serve the pre-built files as-is without running a build step.
+A root-level `netlify.toml` has been configured to publish the `site/` directory directly. This lets Netlify serve the pre-built files as-is without a build step.
 
-If you later add source files (for example, `src/` and `package.json` with a `build` script that outputs to `dist/`), update `netlify.toml` to run the build and publish the built output directory.
+To deploy:
 
-## Notes / Next steps
+1. Connect this repository to Netlify (via Netlify dashboard).
+2. Netlify will automatically use the configuration in `netlify.toml` and publish `site/`.
+3. The `_redirects` file ensures client-side routing works (all paths rewrite to `/index.html`).
 
-- The repository currently does not include original build sources (e.g., `src/`, `package.json`). Add them if you want to rebuild or edit the app.
-- Consider renaming `robust-security-mgmt-netlify-deploy (9)` to a filesystem-friendly name (e.g., `site/` or `dist/`) to simplify tooling.
-- I can help: (1) rename the deploy folder and update netlify.toml, or (2) add a minimal `package.json` and build script — tell me which you'd prefer.
+If you later add source files (for example, `src/` and `package.json` with a `build` script that outputs to `dist/`), update `netlify.toml` to run the build:
+
+```toml
+[build]
+  command = "npm run build"
+  publish = "dist"
+```
+
+## GitHub Pages deployment (optional)
+
+You can also publish to GitHub Pages by enabling it in repository settings and selecting the `gh-pages` branch.
+
+## Next steps
+
+- Add development source files (e.g., `src/` folder and `package.json`) if you want to rebuild or edit the app.
+- Create a CI/CD workflow to run builds and deploy previews on pull requests.
+- Customize error pages or add middleware if using a full-stack setup later.

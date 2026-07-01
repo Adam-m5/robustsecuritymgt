@@ -1,5 +1,5 @@
 [build]
-  publish = "robust-security-mgmt-netlify-deploy (9)"
+  publish = "site"
 
 [[redirects]]
   from = "/*"
